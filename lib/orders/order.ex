@@ -7,12 +7,12 @@ defmodule Exlivery.Orders.Order do
 
   defstruct @keys
 
-  def build(%User{document: document, address: address}, [%Item{} | items]) do
+  def build(%User{document: document, address: address}, [%Item{} | _items] = items) do
     {:ok,
      %__MODULE__{
        user_document: document,
        delivery_address: address,
-       items: nil,
+       items: items,
        total_price: calculate_total_price(items)
      }}
   end
