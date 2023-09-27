@@ -42,4 +42,27 @@ defmodule Exlivery.Orders.AgentTest do
       assert response == expected_response
     end
   end
+
+  describe "list_all/1" do
+    setup do
+      OrderAgent.start_link(%{})
+
+      :ok
+    end
+
+    test "list all orders" do
+      order1 = build(:order)
+      order2 = build(:order)
+
+      {:ok, uuid1} = OrderAgent.save(order1)
+
+      {:ok, uuid2} = OrderAgent.save(order2)
+
+      expected_response = %{uuid1 => order1, uuid2 => order2}
+
+      response = OrderAgent.list_all()
+
+      assert response === expected_response
+    end
+  end
 end
