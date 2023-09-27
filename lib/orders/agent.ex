@@ -15,7 +15,7 @@ defmodule Exlivery.Orders.Agent do
     {:ok, uuid}
   end
 
-  def get(uuid), do: Access.get(__MODULE__, &get_user(&1, uuid))
+  def get(uuid), do: Agent.get(__MODULE__, &get_user(&1, uuid))
 
   defp get_user(state, uuid) do
     case Map.get(state, uuid) do
