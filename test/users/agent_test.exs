@@ -2,7 +2,6 @@ defmodule Exlivery.Users.AgentTest do
   use ExUnit.Case
 
   alias Exlivery.Users.Agent, as: UserAgent
-  alias Exlivery.Users.User
 
   import Exlivery.Factory
 
@@ -26,21 +25,13 @@ defmodule Exlivery.Users.AgentTest do
     end
 
     test "when the user is found, returns the user", %{document: document} do
-      :user
-      |> build(document: document)
-      |> UserAgent.save()
+      user = build(:user, document: document)
+
+      UserAgent.save(user)
 
       response = UserAgent.get(document)
 
-      expected_response =
-        {:ok,
-         %User{
-           name: "John Doe",
-           email: "john.doe@email.com",
-           document: "98765432101",
-           age: 30,
-           address: "Rua Qualquer"
-         }}
+      expected_response = {:ok, user}
 
       assert response === expected_response
     end
