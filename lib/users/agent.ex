@@ -9,7 +9,7 @@ defmodule Exlivery.Users.Agent do
 
   def save(%User{} = user), do: Agent.update(__MODULE__, &update_state(&1, user))
 
-  def get(document), do: Access.get(__MODULE__, &get_user(&1, document))
+  def get(document), do: Agent.get(__MODULE__, &get_user(&1, document))
 
   defp get_user(state, document) do
     case Map.get(state, document) do
